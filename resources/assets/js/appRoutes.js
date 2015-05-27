@@ -37,7 +37,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', '
           'response': function (res) {
           	console.log(res);
             if (res.data.status === 401) {
-              // Handle unauthenticated user.
               $location.path('/auth/login');
 			  $location.replace();
             }
