@@ -8,6 +8,7 @@ angular.module('UserController', []).controller('UserController', ['$scope', 'Us
       user.$login(function (user) {
         $localStorage.token = user.token;
         $scope.getAuthenticatedUser(user);
+        $location.path('/posts');
       }, function (err) {
         console.log(err);
       });
@@ -34,6 +35,7 @@ angular.module('UserController', []).controller('UserController', ['$scope', 'Us
     $scope.findOne = function () {
       var splitPath = $location.path().split('/');
       var userId = splitPath[splitPath.length - 1];
+      console.log(userId);
       $scope.user = User.get({userId: userId});
     };
   }

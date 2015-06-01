@@ -1,7 +1,7 @@
 # Laravel and AngularJS boilerplate with auth
 
 ## What is this??
-This is a boilerplate for AngularJS application with Laravel 5 backend API, that already have working authentification using jwtauth and simple CRUD.
+This is a boilerplate for AngularJS application with Laravel 5 backend API, that already have working authentification using jwtauth and simple Post CRUD.
 
 ## Installation
 1. composer install --prefer-dist

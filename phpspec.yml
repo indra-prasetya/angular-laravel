@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: Todo
-        psr4_prefix: Todo
+        namespace: Camp
+        psr4_prefix: Camp
         src_path: app

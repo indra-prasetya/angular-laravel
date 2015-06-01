@@ -1,4 +1,4 @@
-<?php namespace Todo\Providers;
+<?php namespace Camp\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

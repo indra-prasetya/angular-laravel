@@ -1,4 +1,4 @@
-<?php namespace Todo\Commands;
+<?php namespace Camp\Commands;
 
 abstract class Command {
 

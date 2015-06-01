@@ -139,11 +139,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'Todo\Providers\AppServiceProvider',
-		'Todo\Providers\BusServiceProvider',
-		'Todo\Providers\ConfigServiceProvider',
-		'Todo\Providers\EventServiceProvider',
-		'Todo\Providers\RouteServiceProvider',
+		'Camp\Providers\AppServiceProvider',
+		'Camp\Providers\BusServiceProvider',
+		'Camp\Providers\ConfigServiceProvider',
+		'Camp\Providers\EventServiceProvider',
+		'Camp\Providers\RouteServiceProvider',
 	        /*
 	         * JSON Web Token (Authentication)
 	        */

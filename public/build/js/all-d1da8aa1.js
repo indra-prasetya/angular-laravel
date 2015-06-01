@@ -40543,69 +40543,75 @@ if (typeof jQuery === 'undefined') {
   })
 
 }(jQuery);
-angular.module('todoApp', [
-  'ngRoute',
-  'ngResource',
-  'ngStorage',
-  'appRoutes',
-  'enterStroke',
-  'MainController',
-  'TodoController',
-  'UserController',
-  'UserService',
-  'TodoService',
+angular.module('campApp', [
+    'ngRoute',
+    'ngResource',
+    'ngStorage',
+    'appRoutes',
+    'enterStroke',
+    'MainController',
+    
+    'PostController',
+    'PostService',
+    
+    'UserController',
+    'UserService',
 ]);
 
 
 angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', '$httpProvider',
-  function ($routeProvider, $locationProvider, $httpProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: '/partials/index',
-        controller: 'MainController'
-      })
-      .when('/:category/:action?/:id?', {
-        templateUrl: function (params) {
-          var allowedParams = ['category', 'action', 'id'];
-          var paramVals = [];
-          for (var key in params) {
-            if (allowedParams.indexOf(key) !== -1) {
-              paramVals.push(params[key]);
-            }
-          }
-          console.log('/partials/' + paramVals.join('/'));
-          return '/partials/' + paramVals.join('/');
-        }
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-    
-    $locationProvider.html5Mode(true);
+    function ($routeProvider, $locationProvider, $httpProvider) {
 
-    $httpProvider.interceptors.push(['$rootScope', '$q', '$localStorage', '$location',
-      function ($rootScope, $q, $localStorage, $location) {
-        return {
-          'request': function (config) {
-            config.headers = config.headers || {};
-            if ($localStorage.token) {
-              config.headers.Authorization = 'Bearer ' + $localStorage.token;
+        /*
+         * This route allow us to match CRUD / resource route
+         */
+
+        $routeProvider
+                .when('/', {
+                    templateUrl: '/partials/index',
+                    controller: 'MainController'
+                })
+                .when('/:category/:action?/:id?', {
+                    templateUrl: function (params) {
+                        var allowedParams = ['category', 'action', 'id'];
+                        var paramVals = [];
+                        for (var key in params) {
+                            if (allowedParams.indexOf(key) !== -1) {
+                                paramVals.push(params[key]);
+                            }
+                        }
+                        console.log('/partials/' + paramVals.join('/'));
+                        return '/partials/' + paramVals.join('/');
+                    }
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+
+        $locationProvider.html5Mode(true);
+
+        $httpProvider.interceptors.push(['$rootScope', '$q', '$localStorage', '$location',
+            function ($rootScope, $q, $localStorage, $location) {
+                return {
+                    'request': function (config) {
+                        config.headers = config.headers || {};
+                        if ($localStorage.token) {
+                            config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                        }
+                        return config;
+                    },
+                    'response': function (res) {
+                        console.log(res);
+                        if (res.data.status === 401 || res.data.status === 500) {
+                            $location.path('/auth/login');
+                            $location.replace();
+                        }
+                        return res || $q.when(res);
+                    }
+                };
             }
-            return config;
-          },
-          'response': function (res) {
-          	console.log(res);
-            if (res.data.status === 401) {
-              // Handle unauthenticated user.
-              $location.path('/auth/login');
-			  $location.replace();
-            }
-            return res || $q.when(res);
-          }
-        };
-      }
-    ]);
-  }
+        ]);
+    }
 ]);
 
 angular.module('MainController', []).controller('MainController', ['$scope', '$location', '$localStorage', 'User',
@@ -40650,51 +40656,49 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$l
   }
 ]);
 
-angular.module('TodoController', []).controller('TodoController', ['$scope', '$location', '$routeParams', 'Todo',
-  function ($scope, $location, $routeParams, Todo) {
-    $scope.create = function () {
-      var todo = new Todo({
-        body: this.body
-      });
-      todo.$save(function (res) {
-        $location.path('todos/view/' + res.id);
-        $scope.body = '';
-      }, function (err) {
-        console.log(err);
-      });
-    };
+angular.module('PostController', []).controller('PostController', ['$scope', '$location', '$routeParams', 'Post',
+    function ($scope, $location, $routeParams, Post) {
+        $scope.create = function () {
+            var post = new Post({
+                title: this.title,
+                body: this.body
+            });
+            post.$save(function (res) {
+                $location.path('posts/show/' + res.id);
+                $scope.body = '';
+            }, function (err) {
+                console.log(err);
+            });
+        };
 
-    $scope.find = function () {
-      $scope.todos = Todo.query();
-    };
+        $scope.find = function () {
+            $scope.posts = Post.query();
+        };
 
-    $scope.remove = function (todo) {
-      todo.$remove(function (res) {
-        if (res) {
-          for (var i in $scope.todos) {
-            if ($scope.todos[i] === todo) {
-              $scope.todos.splice(i, 1);
-            }
-          }
-        }
-      }, function (err) {
-        console.log(err);
-      });
-    };
+        $scope.remove = function (post) {           
+            post.$remove(function (res) {
+                alert('Delete success!');
+                $location.path('/posts');
+            }, function (err) {
+                console.log(err);
+            });
+        };
 
-    $scope.update = function (todo) {
-      todo.$update(function (res) {
-      }, function (err) {
-        console.log(err);
-      });
-    };
+        $scope.update = function (post) {
+            console.log(post);
+            post.$update(function (res) {
+                $location.path('/posts/show/' + post.id);
+            }, function (err) {
+                console.log(err);
+            });
+        };
 
-    $scope.findOne = function () {
-      var splitPath = $location.path().split('/');
-      var todoId = splitPath[splitPath.length - 1];
-      $scope.todo = Todo.get({todoId: todoId});
-    };
-  }
+        $scope.findOne = function () {
+            var splitPath = $location.path().split('/');
+            var postId = splitPath[splitPath.length - 1];
+            $scope.post = Post.get({postId: postId});
+        };
+    }
 ]);
 
 angular.module('UserController', []).controller('UserController', ['$scope', 'User', '$localStorage', '$location',
@@ -40707,6 +40711,7 @@ angular.module('UserController', []).controller('UserController', ['$scope', 'Us
       user.$login(function (user) {
         $localStorage.token = user.token;
         $scope.getAuthenticatedUser(user);
+        $location.path('/posts');
       }, function (err) {
         console.log(err);
       });
@@ -40733,21 +40738,22 @@ angular.module('UserController', []).controller('UserController', ['$scope', 'Us
     $scope.findOne = function () {
       var splitPath = $location.path().split('/');
       var userId = splitPath[splitPath.length - 1];
+      console.log(userId);
       $scope.user = User.get({userId: userId});
     };
   }
 ]);
 
-angular.module('TodoService', []).factory('Todo', ['$resource',
-  function ($resource) {
-    return $resource('/api/todo/:todoId', {
-      todoId: '@id'
-    }, {
-      update: {
-        method: 'PUT'
-      }
-    });
-  }
+angular.module('PostService', []).factory('Post', ['$resource',
+    function ($resource) {
+        return $resource('/api/post/:postId', {
+            postId: '@id'
+        }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
 ]);
 angular.module('UserService', []).factory('User', ['$resource',
   function ($resource) {
@@ -40769,19 +40775,4 @@ angular.module('UserService', []).factory('User', ['$resource',
   }
 ]);
 
-// Reacts upon enter key press.
-angular.module('enterStroke', []).directive('enterStroke',
-  function () {
-    return function (scope, element, attrs) {
-      element.bind('keydown keypress', function (event) {
-        if (event.which === 13) {
-          scope.$apply(function () {
-            scope.$eval(attrs.enterStroke);
-          });
-          event.preventDefault();
-        }
-      });
-    };
-  }
-);
 //# sourceMappingURL=all.js.map

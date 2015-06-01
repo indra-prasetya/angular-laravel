@@ -1,10 +1,10 @@
-<?php namespace Todo\Http\Controllers;
+<?php namespace Camp\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Todo\Http\Requests;
-use Todo\Todo;
+use Camp\Http\Requests;
+use Camp\Post;
 
-class TodoController extends Controller
+class PostController extends Controller
 {
 
     private $request;
@@ -23,7 +23,7 @@ class TodoController extends Controller
      */
     public function index()
     {    	
-        return Todo::all();
+        return Post::all();
     }
 
     /**
@@ -44,11 +44,11 @@ class TodoController extends Controller
     public function store()
     {
         $input = $this->request->all();
-        $todo = new Todo($input);
-        if (!$todo->save()) {
+        $post = new Post($input);
+        if (!$post->save()) {
             abort(500, "Saving failed.");
         }
-        return $todo;
+        return $post;
     }
 
     /**
@@ -59,7 +59,7 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        return Todo::find($id);
+        return Post::find($id);
     }
 
     /**
@@ -81,12 +81,13 @@ class TodoController extends Controller
      */
     public function update($id)
     {
-        $todo = Todo::find($id);
-        $todo->body = $this->request->input('body');
-        if (!$todo->save()) {
+        $post = Post::find((int)$id);
+        $post->title = $this->request->input('title');
+        $post->body = $this->request->input('body');
+        if (!$post->save()) {
             abort(500, "Saving failed");
         }
-        return $todo;
+        return $post;
     }
 
     /**
@@ -97,7 +98,7 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        return Todo::destroy($id);
+        return Post::destroy($id);
     }
 
 }

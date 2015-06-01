@@ -1,13 +1,15 @@
-angular.module('todoApp', [
-  'ngRoute',
-  'ngResource',
-  'ngStorage',
-  'appRoutes',
-  'enterStroke',
-  'MainController',
-  'TodoController',
-  'UserController',
-  'UserService',
-  'TodoService',
+angular.module('campApp', [
+    'ngRoute',
+    'ngResource',
+    'ngStorage',
+    'appRoutes',
+    'enterStroke',
+    'MainController',
+    
+    'PostController',
+    'PostService',
+    
+    'UserController',
+    'UserService',
 ]);
 

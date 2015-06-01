@@ -1,6 +1,6 @@
-<?php namespace Todo\Services;
+<?php namespace Camp\Services;
 
-use Todo\User;
+use Camp\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

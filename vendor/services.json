@@ -22,11 +22,11 @@
         "Illuminate\\Translation\\TranslationServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "Todo\\Providers\\AppServiceProvider",
-        "Todo\\Providers\\BusServiceProvider",
-        "Todo\\Providers\\ConfigServiceProvider",
-        "Todo\\Providers\\EventServiceProvider",
-        "Todo\\Providers\\RouteServiceProvider",
+        "Camp\\Providers\\AppServiceProvider",
+        "Camp\\Providers\\BusServiceProvider",
+        "Camp\\Providers\\ConfigServiceProvider",
+        "Camp\\Providers\\EventServiceProvider",
+        "Camp\\Providers\\RouteServiceProvider",
         "Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider"
     ],
     "eager": [
@@ -41,11 +41,11 @@
         "Illuminate\\Session\\SessionServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "Todo\\Providers\\AppServiceProvider",
-        "Todo\\Providers\\BusServiceProvider",
-        "Todo\\Providers\\ConfigServiceProvider",
-        "Todo\\Providers\\EventServiceProvider",
-        "Todo\\Providers\\RouteServiceProvider",
+        "Camp\\Providers\\AppServiceProvider",
+        "Camp\\Providers\\BusServiceProvider",
+        "Camp\\Providers\\ConfigServiceProvider",
+        "Camp\\Providers\\EventServiceProvider",
+        "Camp\\Providers\\RouteServiceProvider",
         "Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider"
     ],
     "deferred": {

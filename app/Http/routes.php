@@ -27,20 +27,16 @@ Route::get('/partials/{category}/{action}/{id}', function ($category, $action = 
     return view(join('.', ['partials', $category, $action]));
 });
 
-// Additional RESTful routes.
 Route::post('/api/user/login', 'UserController@login');
 Route::get('/api/user/getByToken', 'UserController@getByToken');
 
-// Getting RESTful
-Route::resource('/api/todo', 'TodoController');
+Route::resource('/api/post', 'PostController');
 Route::resource('/api/user', 'UserController');
 
-// Catch all undefined routes. Always gotta stay at the bottom since order of routes matters.
 Route::any('{undefinedRoute}', function ($undefinedRoute) {
     return view('layout');
 })->where('undefinedRoute', '([A-z\d-\/_.]+)?');
 
 // Using different syntax for Blade to avoid conflicts with Jade.
-// You are well-advised to go without any Blade at all.
-Blade::setContentTags('<%', '%>'); // For variables and all things Blade.
-Blade::setEscapedContentTags('<%%', '%%>'); // For escaped data.
+Blade::setContentTags('<%', '%>'); 
+Blade::setEscapedContentTags('<%%', '%%>'); 

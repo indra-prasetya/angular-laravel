@@ -1,4 +1,4 @@
-<?php namespace Todo\Http;
+<?php namespace Camp\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -15,7 +15,7 @@ class Kernel extends HttpKernel {
 		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		// 'Todo\Http\Middleware\VerifyCsrfToken',
+		// 'Camp\Http\Middleware\VerifyCsrfToken',
 	];
 
 	/**
@@ -24,10 +24,10 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => 'Todo\Http\Middleware\Authenticate',
-		'jwtauth' => 'Todo\Http\Middleware\JwtAuthenticate',
+		'auth' => 'Camp\Http\Middleware\Authenticate',
+		'jwtauth' => 'Camp\Http\Middleware\JwtAuthenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' => 'Todo\Http\Middleware\RedirectIfAuthenticated',
+		'guest' => 'Camp\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 }

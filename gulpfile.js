@@ -12,29 +12,29 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function (mix) {
-  mix
-    .less(
-      'app.less'
-    )
-    .styles([
-      'style.css'
-    ])
-    .scripts([
-      'libs/**/*.js',
-      'app.js',
-      'appRoutes.js',
-      'controllers/**/*.js',
-      'services/**/*.js',
-      'directives/**/*.js'
-    ])
-    .version([
-      'css/all.css',
-      'js/all.js'
-    ])
-    .copy(
-    'public/js/all.js.map', 'public/build/js/all.js.map'
-  )
-    .copy(
-    'public/css/all.css.map', 'public/build/css/all.css.map'
-  );
+    mix
+            .less(
+                    'app.less'
+                    )
+            .styles([
+                'style.css'
+            ])
+            .scripts([
+                'libs/**/*.js',
+                'app.js',
+                'appRoutes.js',
+                'controllers/**/*.js',
+                'services/**/*.js',
+                'directives/**/*.js'
+            ])
+            .version([
+                'css/all.css',
+                'js/all.js'
+            ])
+            .copy(
+                    'public/js/all.js.map', 'public/build/js/all.js.map'
+                    )
+            .copy(
+                    'public/css/all.css.map', 'public/build/css/all.css.map'
+                    );
 });
